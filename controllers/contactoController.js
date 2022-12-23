@@ -1,19 +1,19 @@
 import Contacto from "../models/contactoModel.js";
 
 const registrar = async (req, res) => {
-   const { email } = req.body;
+   const { emailOrCell } = req.body;
 
-   const existeEmail = await Contacto.findOne({email});
+   const existeEmail = await Contacto.findOne({emailOrCell});
 
    if(existeEmail) {
-    const error = new Error('Mensaje duplicado');
-    return res.status(400).json({msg: error.message});
+    const error = new Error('Duplicate message');
+    return res.status(404).json({msg: error.message});
    }
 
   try {
     const contacto = new Contacto(req.body);
-    const contactoGuardado = await contacto.save();
-    res.json(contactoGuardado)
+    await contacto.save();
+    res.json({msg: 'Message sent successfully'})
 
   } catch (error) {
     console.log(error);

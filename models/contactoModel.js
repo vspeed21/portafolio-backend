@@ -1,27 +1,25 @@
 import mongoose from "mongoose";
 
 const contactoSchema = mongoose.Schema({
-  nombre:{
+  name:{
     type: String,
     required: true,
     trim: true,
   },
 
-  email:{
+  emailOrCell:{
     type: String,
     required: true,
     trim: true,
-  },
-
-  telefono: {
-    type: String,
-    default: null,
   },
   
-  mensaje:{
+  message:{
     type: String,
     required: true,
   }
+}, {
+  timestamps: true,
+  versionKey: false,
 });
 
 const Contacto = mongoose.model('Contacto', contactoSchema);
