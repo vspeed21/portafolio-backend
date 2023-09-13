@@ -1,19 +1,20 @@
+import sendEmailCV from "../helpers/sendEmail.js";
 import Contacto from "../models/contactoModel.js";
 
 const registrar = async (req, res) => {
-   const { emailOrCell } = req.body;
+  const { emailOrCell } = req.body;
 
-   const existeEmail = await Contacto.findOne({emailOrCell});
+  const existeEmail = await Contacto.findOne({ emailOrCell });
 
-   if(existeEmail) {
+  if (existeEmail) {
     const error = new Error('Duplicate message');
-    return res.status(404).json({msg: error.message});
-   }
+    return res.status(404).json({ msg: error.message });
+  }
 
   try {
     const contacto = new Contacto(req.body);
     await contacto.save();
-    res.json({msg: 'Message sent successfully'})
+    res.json({ msg: 'Message sent successfully' })
 
   } catch (error) {
     console.log(error);
@@ -22,6 +23,13 @@ const registrar = async (req, res) => {
   // res.send({msg: 'Mensaje enviado correctamente'});
 }
 
-export{
-  registrar
+const sendEmail = async (req, res) => {
+  const { tipo } = req.body;
+  sendEmailCV(tipo);
+  res.json({ msg: 'Mensaje enviado' });
+}
+
+export {
+  registrar,
+  sendEmail,
 }
