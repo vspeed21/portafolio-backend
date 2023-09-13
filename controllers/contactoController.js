@@ -1,4 +1,4 @@
-import sendEmailCV from "../helpers/sendEmail.js";
+import sendEmailCV from "../helpers/sendEmailCV.js";
 import Contacto from "../models/contactoModel.js";
 
 const registrar = async (req, res) => {
